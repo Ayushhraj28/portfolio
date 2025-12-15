@@ -1,0 +1,180 @@
+/* SocialTrapdoor.css */
+
+.trapdoor {
+    -webkit-transform: translateZ(0px);
+    transform: translateZ(0px);
+    -webkit-font-smoothing: antialiased;
+    position: relative;
+    width: 200px;
+    height: 50px;
+    /* Remove shadow, add border radius if needed, but trapdoor usually needs sharp edges for the split */
+    /* Match input style: background rgba(255,255,255,0.05) */
+    background: rgba(255, 255, 255, 0.05);
+    -webkit-transition: background 400ms ease-in-out;
+    transition: background 400ms ease-in-out;
+    margin: 0;
+    border-radius: 10px;
+    /* Optional: match input radius */
+}
+
+.trapdoor:hover {
+    background: rgba(255, 255, 255, 0.1);
+    /* Slightly lighter on hover */
+    box-shadow: 0 0 20px var(--glow-color, rgba(255, 255, 255, 0.3));
+    /* Glow effect */
+}
+
+.trapdoor:hover .door {
+    box-shadow: 0px 0px 10px -2px rgba(0, 0, 0, 0.4);
+    transform: scale(1.08);
+}
+
+.trapdoor:hover .top {
+    top: -50%;
+}
+
+.trapdoor:hover .bottom {
+    top: 100%;
+}
+
+.trapdoor .social-link {
+    position: absolute !important;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+    white-space: nowrap;
+    text-decoration: none;
+    color: #fff;
+    /* White text */
+    font-weight: bold;
+    font-size: 14px;
+}
+
+/* Twitter specific override for the widget button if needed, 
+   but we are using a custom link style for consistency now?
+   The original used the twitter widget which renders an iframe.
+   If we want consistent style for all, we should just use a styled <a> tag.
+   The user said "use this code", which had the twitter widget.
+   But for other socials, we don't have widgets.
+   So I should probably style the link to look good.
+*/
+
+.top {
+    top: 0%;
+    left: 0px;
+}
+
+.bottom {
+    top: 49%;
+    left: 0px;
+}
+
+.door {
+    transition: top 400ms, box-shadow 200ms, transform 300ms;
+    transition-timing-function: ease-in-out;
+    background-color: var(--black);
+    /* Dark background to match theme */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    /* Border to match inputs */
+    position: absolute;
+    overflow: hidden;
+    width: 100%;
+    z-index: 2;
+    height: 51%;
+    box-sizing: border-box;
+    /* Ensure border is included in height */
+}
+
+/* Remove border from the meeting edge to look seamless when closed */
+.top.door {
+    border-bottom: none;
+    border-radius: 10px 10px 0 0;
+}
+
+.bottom.door {
+    border-top: none;
+    border-radius: 0 0 10px 10px;
+}
+
+/* Font based icons (Twitter original) */
+.trapdoor.twitter .font-door:before {
+    font-family: 'tweet', sans-serif;
+    position: absolute;
+    margin-left: -20px;
+    font-size: 35px;
+    display: block;
+    color: #4099FF;
+    content: "\e000";
+    width: 0px;
+    height: 20px;
+    left: 52%;
+}
+
+.trapdoor.twitter .top.font-door:before {
+    top: 5px;
+}
+
+.trapdoor.twitter .bottom.font-door:before {
+    top: -20px;
+}
+
+@font-face {
+    font-family: 'tweet';
+    src: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/277/tweet.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* Image based icons */
+.image-door {
+    background-image: var(--door-icon);
+    background-size: 30px 30px;
+    /* Adjust as needed */
+    background-repeat: no-repeat;
+}
+
+.top.image-door {
+    background-position: center 10px;
+    /* Position for top half */
+}
+
+.bottom.image-door {
+    background-position: center -15px;
+    /* Position for bottom half - 30px height, split at 15px */
+}
+
+/* Platform specific colors if needed */
+.trapdoor.linkedin {
+    --glow-color: rgba(0, 119, 181, 0.6);
+}
+
+.trapdoor.linkedin .social-link {
+    color: #fff;
+}
+
+.trapdoor.github {
+    --glow-color: rgba(255, 255, 255, 0.4);
+}
+
+.trapdoor.github .social-link {
+    color: #fff;
+    /* Keep text white */
+}
+
+/* Invert GitHub door to make black icon white on black background */
+.trapdoor.github .door {
+    background-color: #fff;
+    /* Becomes black */
+    border-color: rgba(0, 0, 0, 0.1);
+    /* Becomes white */
+    filter: invert(1);
+}
+
+.trapdoor.instagram {
+    --glow-color: rgba(214, 41, 118, 0.6);
+}
+
+.trapdoor.instagram .social-link {
+    color: #d62976;
+}

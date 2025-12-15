@@ -1,0 +1,89 @@
+/* SocialLinks.css */
+
+.social-links-container {
+    display: flex;
+    justify-content: center;
+    flex-flow: row nowrap;
+    /* Force single row */
+    gap: 2rem;
+    /* Increase gap slightly */
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.social-links-container li {
+    position: relative;
+    width: 4.5rem;
+    /* Use width instead of flex-basis to avoid squishing */
+    height: 4.5rem;
+}
+
+.social-links-container li::after {
+    position: absolute;
+    content: attr(data-tooltip);
+    inset: -45% auto auto 50%;
+    z-index: 10;
+    /* Increased z-index to ensure visibility */
+    translate: -50%;
+    padding: 0.25rem 0.75rem;
+    font-size: 0.875rem;
+    color: #fff;
+    background: var(--bg, #070707);
+    border-radius: 0.25rem;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: inset 0.4s cubic-bezier(0.47, 2, 0.41, 1.5),
+        visibility 0.3s ease-in-out, opacity 0.2s ease-in-out;
+    white-space: nowrap;
+}
+
+.social-links-container li:has(a:hover, a:focus-visible)::after {
+    opacity: 1;
+    visibility: visible;
+    inset-block-start: -60%;
+}
+
+.social-links-container a {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    aspect-ratio: 1;
+    font-size: 1.75rem;
+    color: #070707;
+    background: white;
+    /* Ensure icon has background */
+    border-radius: 100%;
+    text-decoration: none;
+    outline: none;
+    overflow: hidden;
+    transition: color 0.3s ease-in-out;
+    width: 100%;
+    height: 100%;
+}
+
+.social-links-container a>i {
+    position: relative;
+    z-index: 1;
+}
+
+.social-links-container a::after {
+    position: absolute;
+    content: "";
+    inset: 100% 0 0;
+    background: var(--bg, #070707);
+    pointer-events: none;
+    transition: inset 0.3s ease-in-out;
+}
+
+.social-links-container a:hover,
+.social-links-container a:focus-visible {
+    color: #fff;
+}
+
+.social-links-container a:hover::after,
+.social-links-container a:focus-visible::after {
+    inset-block-start: 0;
+}
